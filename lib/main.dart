@@ -12,9 +12,34 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Text('Hello World!'),
+          child: Button(),
         ),
       ),
+    );
+  }
+}
+
+class Button extends StatefulWidget {
+  const Button({super.key});
+
+  @override
+  State<Button> createState() => _ButtonState();
+}
+class _ButtonState extends State<Button> {
+  int counter = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ElevatedButton(
+          onPressed: () => setState(() {
+            counter++;
+          }), 
+          child: Text( 'Counter: $counter')
+        )
+      ],
     );
   }
 }
