@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/grade_calculator.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,11 +11,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Button(),
-        ),
-      ),
+      home: GradeCalculator(), // test grade calc screen
+      // home: Scaffold(body: Center(child: Button())),
     );
   }
 }
@@ -25,6 +23,7 @@ class Button extends StatefulWidget {
   @override
   State<Button> createState() => _ButtonState();
 }
+
 class _ButtonState extends State<Button> {
   int counter = 0;
 
@@ -36,9 +35,9 @@ class _ButtonState extends State<Button> {
         ElevatedButton(
           onPressed: () => setState(() {
             counter++;
-          }), 
-          child: Text( 'Counter: $counter')
-        )
+          }),
+          child: Text('Counter: $counter'),
+        ),
       ],
     );
   }
