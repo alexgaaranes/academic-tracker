@@ -98,6 +98,14 @@ class _GradeCalculatorState extends State<GradeCalculator> {
     );
   }
 
+  String displayValue(double val) {
+    if (val == val.toInt()) {
+      return val.toInt().toString(); // 2.0 → "2"
+    } else {
+      return val.toStringAsFixed(2); // 2.5 → "2.5"
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,9 +129,7 @@ class _GradeCalculatorState extends State<GradeCalculator> {
                 Expanded(
                   child: TextField(
                     controller: _componentWeightController,
-                    decoration: const InputDecoration(
-                      labelText: 'Weight (%)',
-                    ),
+                    decoration: const InputDecoration(labelText: 'Weight (%)'),
                     keyboardType: TextInputType.number,
                   ),
                 ),
@@ -144,13 +150,13 @@ class _GradeCalculatorState extends State<GradeCalculator> {
                   return Card(
                     child: ExpansionTile(
                       title: Text(
-                        '${component.name} (${component.weight * 100}%)',
+                        '${component.name} ${displayValue(component.percentOfTotal)}/${component.weight * 100}%',
                       ),
                       children: [
                         ...component.entries.map(
                           (e) => ListTile(
                             title: Text(
-                              '${e.earned.toStringAsFixed(1)}/${e.total.toStringAsFixed(1)}',
+                              '${displayValue(e.earned)}/${displayValue(e.total)}',
                             ),
                           ),
                         ),
