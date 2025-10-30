@@ -10,6 +10,7 @@ class GradeCalculator extends StatefulWidget {
 
 class _GradeCalculatorState extends State<GradeCalculator> {
   final List<GradeComponent> _components = [];
+  late final Grade grade = Grade(components: _components);
   final _componentNameController = TextEditingController();
   final _componentWeightController = TextEditingController();
 
@@ -169,6 +170,18 @@ class _GradeCalculatorState extends State<GradeCalculator> {
                     ),
                   );
                 },
+              ),
+            ),
+            Text(
+              grade.totalWeightPercent == 100
+                  ? 'Total: ${displayValue(grade.finalPercent)}%'
+                  : 'Total weight must equal 100% (currently ${displayValue(grade.totalWeightPercent)}%)',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: grade.totalWeightPercent == 100
+                    ? Colors.black
+                    : Colors.red,
               ),
             ),
           ],

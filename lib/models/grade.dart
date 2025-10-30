@@ -1,24 +1,17 @@
 class Grade {
   final List<GradeComponent> components;
 
-  Grade({
-    this.components = const [],
-  });
+  Grade({this.components = const []});
 
-  /// weighted average (based on each component's percentage)
-  double get weightedAverage {
-    if (components.isEmpty) return 0;
+  /// sum of all component weights in percent (0–100)
+  double get totalWeightPercent {
+    return components.fold(0, (sum, c) => sum + c.weight * 100);
+  }
 
-    double totalWeighted = 0;
-    double totalWeight = 0;
-
-    for (final c in components) {
-      totalWeighted += c.percentOfTotal;
-      totalWeight += c.weight;
-    }
-
-    if (totalWeight == 0) return 0;
-    return totalWeighted / totalWeight;
+  /// final grade contribution (only valid if totalWeightPercent == 100)
+  double get finalPercent {
+    if (totalWeightPercent != 100) return 0; 
+    return components.fold<double>(0, (sum, c) => sum + c.percentOfTotal);
   }
 }
 
@@ -58,10 +51,6 @@ class GradeComponent {
 class GradeEntry {
   final double earned;
   final double total;
-  
 
-  GradeEntry({
-    required this.earned,
-    required this.total,
-  });
+  GradeEntry({required this.earned, required this.total});
 }
